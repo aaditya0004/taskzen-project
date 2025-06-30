@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/tasks", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(res.data);
@@ -35,7 +35,7 @@ const Dashboard = () => {
   // Delete handler function
   const handleDelete = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${taskId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -53,7 +53,7 @@ const Dashboard = () => {
   const handleToggleComplete = async (taskId, currentStatus) => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/tasks/${taskId}`,
+        `${import.meta.env.VITE_API_URL}/api/tasks/${taskId}`,
         { completed: !currentStatus }, // toggle
         {
           headers: {
@@ -104,7 +104,7 @@ const Dashboard = () => {
             if (editId) {
               // Editing an existing task
               const res = await axios.put(
-                `http://localhost:5000/api/tasks/${editId}`,
+                `${import.meta.env.VITE_API_URL}/api/tasks/${editId}`,
                 form,
                 { headers: { Authorization: `Bearer ${token}` } }
               );
@@ -120,7 +120,7 @@ const Dashboard = () => {
               // Creating a new task
               console.log("Submitting:", form);
               const res = await axios.post(
-                "http://localhost:5000/api/tasks",
+                `${import.meta.env.VITE_API_URL}/api/tasks`,
                 form, // this includes title and description
                 {
                   headers: {
